@@ -67,3 +67,6 @@ unMake = concat . concat
 
 isInverse :: Eq a => (a -> b) -> (b -> a) -> a -> Bool
 isInverse f g a = a == (g . f $ a)
+
+makeXor = makeNetwork 2 [2, 1]
+
