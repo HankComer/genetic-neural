@@ -50,5 +50,3 @@ rearrange a b c =
   (left:right:[]) = sortBy (compare `on` getX) [foo, bar]
  in (top, left, right)
 
-onePerLine :: Show a => [a] -> IO ()
-onePerLine = mapM_ print
