@@ -12,7 +12,7 @@ delta (x, y, z) (x', y', z') =  (x-x', y-y', z-z')
 
 
 
-pythag (x, y, z) = sqrt (x * x + y * y + z * z)
+pythag3 (x, y, z) = sqrt (x * x + y * y + z * z)
 
 ---- +Z is forward
 ---- +X is right
@@ -20,11 +20,32 @@ pythag (x, y, z) = sqrt (x * x + y * y + z * z)
 
 
 
-polarRectangular p@(x, y, z) = (atan2 x z, atan2 y z, pythag p)
+r2S p@(x, y, z) = (azimuth, altitude, radius) where
+  azimuth = atan2 x z
+  altitude = asin (y / radius)
+  radius = pythag3 p
+  
+  
+
+pythag2 x y = sqrt $ x * x + y * y
 
 
-shiftPerspective :: Point -> Point -> [Point] -> [Point]
-shiftPerspective vcoords vprops points = map (flip delta vprops . polarRectangular . flip delta vcoords) points
+halfPi = pi / 2
+
+
+s2R (yaw, pitch, dist) = (x, y, z)  where
+   y = dist * sin pitch
+   z = dist * cos pitch * cos yaw
+   x = dist * cos pitch * sin yaw
+   
+
+
+
+
+
+xdist (x, _, z) = sqrt $ x * x + z * z
+
+ydist (_, y, z) = sqrt $ y * y + z * z
 
 
 origin :: Point
