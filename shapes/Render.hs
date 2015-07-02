@@ -2,18 +2,11 @@ module Render where
 import Perspective (delta, s2R, r2S, pythag3, pythag2)
 import Fill (cFillTriangle, getZ, on)
 import Data.List (minimumBy, groupBy, sortBy)
-
-
-type Point = (Double, Double, Double)
+import CommonData
 
 shiftAndRotate :: Point -> Point -> Point -> Point
 shiftAndRotate coord view point =  (s2R . flip delta view . r2S . flip delta coord) point
 
-{-
-fixTriangle' :: RenderSettings -> Point -> Point -> (a, (Point, Point, Point)) -> [(a, Point)]
-fixTriangle' settings coord view (disp, (a, b, c)) = case shiftAndRotate coord view [a, b, c] of
-    [q, w, e] -> map (scalePoint' (xScaleOf settings, yScaleOf settings)) $ cFillTriangle (resolutionOf settings) q w e disp
--}
 
 
 fixTriangle :: RenderSettings -> Point -> Point -> (a, (Point, Point, Point)) -> [(a, Point)]

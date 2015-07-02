@@ -1,11 +1,7 @@
 module Fill where
 import Control.Applicative
 import Data.List
-
-
---Assuming pixel size is 1
-
-type Point = (Double, Double, Double)
+import CommonData
 
 f `on` a = \x y -> f (a x) (a y)
 

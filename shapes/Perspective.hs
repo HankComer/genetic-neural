@@ -1,10 +1,6 @@
 module Perspective where
 
-
-
-
-
-type Point = (Double, Double, Double)
+import CommonData
 
 
 
