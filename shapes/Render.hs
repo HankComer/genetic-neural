@@ -24,20 +24,9 @@ unScale s (x, y, z) = (x / xScaleOf s, y / yScaleOf s, z)
 
 doThing' settings coord view = (>>= fixTriangle settings coord view)
 
+doThing s coord view = map (fmap (scaleByRetina s . unScale s . fixPoint s coord view))
 
 
-
-
-
-data RenderSettings = Settings {
-	yScaleOf :: Double,
-	xScaleOf :: Double,
-	yThreshOf :: Int,
-	xThreshOf :: Int,
-	yawScaleOf :: Double,
-	pitchScaleOf :: Double,
-        resolutionOf :: Double,
-        retinaOf :: Double}
 
 
 
@@ -71,11 +60,14 @@ scalePoint' (x', y') (a, (x, y, z)) = (a, (x * x', y * y', z))
 printRender coord view triangles settings =
   mapM_ putStrLn $ renderPoints settings ' ' $ doThing' settings coord view triangles
 
+displayRender coord view points settings =
+  mapM_ putStrLn $ renderPoints settings ' ' $ doThing settings coord view points
+
 scaleTriangle :: RenderSettings -> (a, (Point, Point, Point)) -> (a, (Point, Point, Point))
 scaleTriangle settings (r, (a, b, c)) = (r, (scale settings a, scale settings b, scale settings c))
 
 
-mySettings = Settings {yScaleOf = 8, xScaleOf = 8, yThreshOf = 20, xThreshOf = 20, retinaOf = 10, yawScaleOf = 1, pitchScaleOf = 1, resolutionOf = 0.5}
+
 
 myTriangle f distance = (f, ((-5, 0, distance), (0, 12, distance), (12, 0, distance)))
 
