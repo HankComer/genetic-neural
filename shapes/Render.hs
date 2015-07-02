@@ -62,3 +62,4 @@ scaleTriangle settings (r, (a, b, c)) = (r, (scale settings a, scale settings b,
 mySettings = Settings 8 25 12 40 1 1
 
 myTriangle f distance = (f, ((-1, -1, distance), (0, 12, distance), (12, 0, distance)))
+

@@ -26,23 +26,23 @@ getX (x, _, _) = x
 getY (_, y, _) = y
 getZ (_, _, z) = z
 
-rangeOf a b = [0..(b - a)]
+rangeOf step a b = [0, step..(b - a)]
 
 
 
 -- assumes that a is highest, and c is to the right of b
-fillTriangle :: Point -> Point -> Point -> a -> [(a, Point)]
-fillTriangle a@(_, aY, _) b@(bX, _, _) c@(cX, _, _) color =
+fillTriangle :: Double -> Point -> Point -> Point -> a -> [(a, Point)]
+fillTriangle resolution a@(_, aY, _) b@(bX, _, _) c@(cX, _, _) color =
  let
-  lowerPoints = map (yzBasedOnX b c) (rangeOf bX cX)
-  blah p@(_, pY, _) = map (xzBasedOnY p a) (rangeOf pY aY)
+  lowerPoints = map (yzBasedOnX b c) (rangeOf resolution bX cX)
+  blah p@(_, pY, _) = map (xzBasedOnY p a) (rangeOf resolution pY aY)
  in fmap ((,) color) $ lowerPoints >>= blah
 
 
   
 
-cFillTriangle a b c color = case rearrange a b c of
-    (top, left, right) -> fillTriangle top left right color
+cFillTriangle resolution a b c color = case rearrange a b c of
+    (top, left, right) -> fillTriangle resolution top left right color
 
 rearrange a b c = 
  let
